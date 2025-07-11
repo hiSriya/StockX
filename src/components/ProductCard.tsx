@@ -4,42 +4,36 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Calendar, Package, IndianRupee, AlertTriangle, CheckCircle } from 'lucide-react';
 
+interface Product {
+  product_id: string;
+  product_name: string;
+  store_id: string;
+  expiry_date: string;
+  stock: string;
+  MRP: string;
+  final_price: string;
+  remaining_expected_sales?: string;
+}
+
 interface ProductCardProps {
-  product: {
-    id?: number;
-    run_id?: string;
-    store_id: string;
-    product_id: string;
-    product_name: string;
-    stock: number;
-    expiry_date: string;
-    shelf_life_days?: number;
-    avg_daily_sales?: number;
-    MRP: number;
-    days_to_expiry: number;
-    remaining_ratio?: number;
-    expected_sales?: number;
-    predicted_demand?: number;
-    discount?: number;
-    final_price: number;
-  };
+  product: Product;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
-  const MRP = parseFloat(product.MRP?.toString() || '0');
-  const finalPrice = parseFloat(product.final_price?.toString() || '0');
-  const stock = parseInt(product.stock?.toString() || '0');
+  const MRP = parseFloat(product.MRP || '0');
+  const finalPrice = parseFloat(product.final_price || '0');
+  const stock = parseInt(product.stock || '0');
   const discount = MRP - finalPrice;
   const discountPercentage = MRP > 0 ? ((discount / MRP) * 100).toFixed(1) : '0';
   
-  const daysUntilExpiry = product.days_to_expiry || 0;
+  // Calculate days until expiry
+  const expiryDate = new Date(product.expiry_date);
+  const today = new Date();
+  const daysUntilExpiry = Math.ceil((expiryDate.getTime() - today.getTime()) / (1000 * 3600 * 24));
+  
   const isExpiringSoon = daysUntilExpiry <= 7;
   const isLowStock = stock < 10;
   const hasDiscount = discount > 3;
-
-  const formatDate = (dateString) => {
-    return new Date(dateString).toLocaleDateString();
-  };
 
   return (
     <Card className="shadow-lg border-0 bg-white hover:shadow-xl transition-all duration-300 hover:scale-105 overflow-hidden">
@@ -68,7 +62,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           <div className="flex items-center text-sm">
             <Calendar className="w-4 h-4 mr-2 text-gray-500" />
             <span className={`${isExpiringSoon ? 'text-red-600 font-medium' : 'text-gray-600'}`}>
-              Expiry: {formatDate(product.expiry_date)} ({daysUntilExpiry} days)
+              Expiry: {product.expiry_date}
             </span>
           </div>
 
@@ -76,19 +70,12 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           <div className="flex items-center text-sm">
             <Package className="w-4 h-4 mr-2 text-gray-500" />
             <span className={`${isLowStock ? 'text-orange-600 font-medium' : 'text-gray-600'}`}>
-              Stock: {stock} units
+              Stock: {product.stock} units
             </span>
             {isLowStock && (
               <AlertTriangle className="w-4 h-4 ml-2 text-orange-500" />
             )}
           </div>
-
-          {/* Expected Sales */}
-          {product.expected_sales && (
-            <div className="text-sm text-gray-600">
-              Expected Sales: {product.expected_sales}
-            </div>
-          )}
 
           {/* Pricing */}
           <div className="space-y-2">
@@ -102,7 +89,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center">
                     <CheckCircle className="w-4 h-4 mr-2 text-green-600" />
-                    <span className="font-semibold text-green-800">Discounted Price</span>
+                    <span className="font-semibold text-green-800">Our Price</span>
                   </div>
                   <div className="text-right">
                     <div className="text-lg font-bold text-green-800">₹{finalPrice.toFixed(2)}</div>

@@ -1,174 +1,180 @@
 
 import React from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
 import { useNavigate } from 'react-router-dom';
-import { BarChart3, Package, TrendingUp, Upload, ArrowRight, CheckCircle } from 'lucide-react';
+import { 
+  Package, 
+  TrendingUp, 
+  BarChart3, 
+  Users, 
+  Shield, 
+  Zap,
+  ArrowRight,
+  CheckCircle
+} from 'lucide-react';
 
 const Landing = () => {
   const navigate = useNavigate();
 
   const features = [
     {
-      icon: <Upload className="w-8 h-8 text-blue-600" />,
-      title: 'CSV Data Upload',
-      description: 'Upload inventory and store data to run optimization algorithms'
+      icon: <Package className="w-8 h-8 text-blue-600" />,
+      title: "Smart Inventory Management",
+      description: "Track stock levels, expiry dates, and product pricing across all stores"
     },
     {
-      icon: <BarChart3 className="w-8 h-8 text-green-600" />,
-      title: 'Smart Analytics',
-      description: 'Get insights on inventory levels, sales predictions, and stock optimization'
+      icon: <TrendingUp className="w-8 h-8 text-green-600" />,
+      title: "Price Optimization",
+      description: "AI-powered price suggestions to maximize sales and reduce waste"
     },
     {
-      icon: <Package className="w-8 h-8 text-purple-600" />,
-      title: 'Transfer Suggestions',
-      description: 'Automatic suggestions for optimal product transfers between stores'
+      icon: <BarChart3 className="w-8 h-8 text-purple-600" />,
+      title: "Advanced Analytics",
+      description: "Real-time dashboards with sales forecasting and performance metrics"
     },
     {
-      icon: <TrendingUp className="w-8 h-8 text-orange-600" />,
-      title: 'Dynamic Pricing',
-      description: 'AI-powered pricing recommendations based on expiry dates and demand'
+      icon: <Users className="w-8 h-8 text-orange-600" />,
+      title: "Multi-Store Management",
+      description: "Centralized control for up to 30 stores with transfer suggestions"
+    },
+    {
+      icon: <Shield className="w-8 h-8 text-red-600" />,
+      title: "Loss Prevention",
+      description: "Early expiry alerts and automated transfer recommendations"
+    },
+    {
+      icon: <Zap className="w-8 h-8 text-yellow-600" />,
+      title: "Automated Workflows",
+      description: "Streamline operations with approval workflows and notifications"
     }
   ];
 
+  const stats = [
+    { label: "Active Stores", value: "30+", color: "text-blue-600" },
+    { label: "Products Tracked", value: "10K+", color: "text-green-600" },
+    { label: "Cost Savings", value: "25%", color: "text-purple-600" },
+    { label: "Waste Reduction", value: "40%", color: "text-orange-600" }
+  ];
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
       {/* Header */}
-      <header className="container mx-auto px-4 py-6">
-        <nav className="flex justify-between items-center">
-          <div className="flex items-center space-x-2">
-            <Package className="w-8 h-8 text-blue-600" />
-            <span className="text-2xl font-bold text-gray-900">SmartStockX</span>
-          </div>
-          <div className="flex space-x-4">
-            <Button variant="ghost" onClick={() => navigate('/dashboard')}>
-              Dashboard
+      <header className="bg-white shadow-sm border-b">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex justify-between items-center">
+            <div className="flex items-center space-x-2">
+              <Package className="w-8 h-8 text-blue-600" />
+              <h1 className="text-2xl font-bold text-gray-900">InventoryPro</h1>
+            </div>
+            <Button 
+              onClick={() => navigate('/dashboard')}
+              className="bg-blue-600 hover:bg-blue-700"
+            >
+              Access Dashboard
+              <ArrowRight className="w-4 h-4 ml-2" />
             </Button>
-            <Button onClick={() => navigate('/run-optimization')}>
-              Run Optimization
-            </Button>
           </div>
-        </nav>
+        </div>
       </header>
 
       {/* Hero Section */}
-      <section className="container mx-auto px-4 py-20 text-center">
-        <div className="max-w-4xl mx-auto">
-          <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
-            Smart Inventory
-            <span className="text-blue-600"> Optimization</span>
-          </h1>
-          <p className="text-xl text-gray-600 mb-10 leading-relaxed">
-            Maximize profits, minimize waste. Our AI-powered platform optimizes inventory management,
-            suggests strategic transfers, and implements dynamic pricing across your retail network.
+      <section className="py-20">
+        <div className="container mx-auto px-4 text-center">
+          <Badge className="mb-6 bg-blue-100 text-blue-800 px-4 py-2">
+            Advanced Inventory Management System
+          </Badge>
+          <h2 className="text-5xl font-bold text-gray-900 mb-6">
+            Optimize Your Inventory
+            <span className="text-blue-600 block mt-2">Maximize Your Profits</span>
+          </h2>
+          <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+            Streamline your multi-store operations with AI-powered insights, 
+            automated transfer suggestions, and real-time analytics.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button 
-              size="lg" 
-              onClick={() => navigate('/run-optimization')}
-              className="bg-blue-600 hover:bg-blue-700 text-lg px-8 py-4"
+              size="lg"
+              onClick={() => navigate('/dashboard')}
+              className="bg-blue-600 hover:bg-blue-700 px-8 py-3"
             >
-              <Upload className="w-5 h-5 mr-2" />
-              Start Optimization
+              Get Started
               <ArrowRight className="w-5 h-5 ml-2" />
             </Button>
             <Button 
-              size="lg" 
-              variant="outline" 
-              onClick={() => navigate('/dashboard')}
-              className="text-lg px-8 py-4 border-2"
+              size="lg"
+              variant="outline"
+              className="px-8 py-3"
             >
-              <BarChart3 className="w-5 h-5 mr-2" />
-              View Dashboard
+              View Demo
             </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Stats Section */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            {stats.map((stat, index) => (
+              <div key={index} className="text-center">
+                <div className={`text-4xl font-bold ${stat.color} mb-2`}>
+                  {stat.value}
+                </div>
+                <div className="text-gray-600">{stat.label}</div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* Features Section */}
-      <section className="container mx-auto px-4 py-20">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">
-            Powerful Features for Smart Retailers
-          </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Everything you need to optimize your inventory and maximize profitability
-          </p>
-        </div>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {features.map((feature, index) => (
-            <Card key={index} className="text-center hover:shadow-lg transition-shadow duration-300 border-0 shadow-md">
-              <CardHeader className="pb-4">
-                <div className="mx-auto mb-4 p-3 bg-gray-50 rounded-full w-fit">
-                  {feature.icon}
-                </div>
-                <CardTitle className="text-xl">{feature.title}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <CardDescription className="text-gray-600 leading-relaxed">
-                  {feature.description}
-                </CardDescription>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      </section>
-
-      {/* How it Works Section */}
-      <section className="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-20">
+      <section className="py-20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">How It Works</h2>
-            <p className="text-xl text-blue-100 max-w-2xl mx-auto">
-              Simple steps to transform your inventory management
+            <h3 className="text-3xl font-bold text-gray-900 mb-4">
+              Everything You Need to Manage Inventory
+            </h3>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              Comprehensive tools and features designed to streamline your operations 
+              and boost profitability across all locations.
             </p>
           </div>
-
-          <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-            <div className="text-center">
-              <div className="bg-white bg-opacity-20 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl font-bold">1</span>
-              </div>
-              <h3 className="text-xl font-semibold mb-2">Upload Data</h3>
-              <p className="text-blue-100">Upload your inventory and store CSV files</p>
-            </div>
-            
-            <div className="text-center">
-              <div className="bg-white bg-opacity-20 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl font-bold">2</span>
-              </div>
-              <h3 className="text-xl font-semibold mb-2">AI Analysis</h3>
-              <p className="text-blue-100">Our algorithms analyze and optimize your inventory</p>
-            </div>
-            
-            <div className="text-center">
-              <div className="bg-white bg-opacity-20 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl font-bold">3</span>
-              </div>
-              <h3 className="text-xl font-semibold mb-2">Get Results</h3>
-              <p className="text-blue-100">Receive actionable insights and transfer suggestions</p>
-            </div>
+          
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {features.map((feature, index) => (
+              <Card key={index} className="shadow-lg border-0 hover:shadow-xl transition-shadow">
+                <CardHeader>
+                  <div className="flex items-center space-x-3">
+                    {feature.icon}
+                    <CardTitle className="text-xl">{feature.title}</CardTitle>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-gray-600">{feature.description}</p>
+                </CardContent>
+              </Card>
+            ))}
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="container mx-auto px-4 py-20 text-center">
-        <div className="max-w-3xl mx-auto">
-          <h2 className="text-4xl font-bold text-gray-900 mb-6">
-            Ready to Optimize Your Inventory?
-          </h2>
-          <p className="text-xl text-gray-600 mb-8">
-            Join retailers who are already maximizing their profits with SmartStockX
+      <section className="py-20 bg-blue-600">
+        <div className="container mx-auto px-4 text-center">
+          <h3 className="text-3xl font-bold text-white mb-4">
+            Ready to Transform Your Inventory Management?
+          </h3>
+          <p className="text-blue-100 mb-8 max-w-2xl mx-auto">
+            Join thousands of retailers who have optimized their operations with InventoryPro.
           </p>
           <Button 
-            size="lg" 
-            onClick={() => navigate('/run-optimization')}
-            className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-lg px-8 py-4"
+            size="lg"
+            onClick={() => navigate('/dashboard')}
+            className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-3"
           >
-            <Upload className="w-5 h-5 mr-2" />
-            Start Your Optimization
+            Start Your Dashboard
             <ArrowRight className="w-5 h-5 ml-2" />
           </Button>
         </div>
@@ -176,14 +182,17 @@ const Landing = () => {
 
       {/* Footer */}
       <footer className="bg-gray-900 text-white py-12">
-        <div className="container mx-auto px-4 text-center">
-          <div className="flex items-center justify-center space-x-2 mb-4">
-            <Package className="w-6 h-6 text-blue-400" />
-            <span className="text-xl font-bold">SmartStockX</span>
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col md:flex-row justify-between items-center">
+            <div className="flex items-center space-x-2 mb-4 md:mb-0">
+              <Package className="w-6 h-6" />
+              <span className="text-xl font-bold">InventoryPro</span>
+            </div>
+            <div className="flex items-center space-x-4">
+              <CheckCircle className="w-5 h-5 text-green-400" />
+              <span className="text-gray-300">Trusted by 500+ businesses</span>
+            </div>
           </div>
-          <p className="text-gray-400">
-            Intelligent inventory optimization for modern retailers
-          </p>
         </div>
       </footer>
     </div>
